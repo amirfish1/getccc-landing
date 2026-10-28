@@ -1,7 +1,9 @@
 # getccc-landing
 
 Serves https://getccc.dev/ — a redirect to https://ccc.amirfish.ai/ that
-preserves the incoming query string and adds email-outreach attribution.
+preserves the incoming query string and fragment. Explicit campaign tags are
+kept unchanged; only links without source, medium or campaign tags receive
+email-outreach attribution (including content-only email variants).
 `getccc.dev` is the cold-outreach sender domain (amir@getccc.dev), so
 links in those emails share the sender's domain instead of a UTM-laden
 amirfish.ai URL.

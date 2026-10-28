@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=https://ccc.amirfish.ai/">
+<noscript><meta http-equiv="refresh" content="0; url=https://ccc.amirfish.ai/"></noscript>
 <link rel="canonical" href="https://ccc.amirfish.ai/">
 <title>CCC — Command Center for coding agents</title>
 <meta name="description" content="One local board for Claude Code, Codex, Cursor and 5 more coding agents.">
@@ -18,12 +18,20 @@
 </head>
 <body>
 <script>
-// Hand the visit to the real site, adding outreach attribution and keeping
-// any incoming query (e.g. ?utm_content=<variant>) on the destination URL.
-var extra = location.search ? "&" + location.search.slice(1) : "";
-location.replace(
-  "https://ccc.amirfish.ai/?utm_source=email&utm_medium=outreach&utm_campaign=gh-leadgen" + extra
-);
+// Preserve explicit campaign attribution. Only untagged outreach links get
+// email defaults; content-only variants still belong to the outreach campaign.
+var destination = new URL("https://ccc.amirfish.ai/");
+destination.search = location.search;
+destination.hash = location.hash;
+var campaign = destination.searchParams;
+if (!["utm_source", "utm_medium", "utm_campaign"].some(function (key) {
+  return campaign.has(key);
+})) {
+  campaign.set("utm_source", "email");
+  campaign.set("utm_medium", "outreach");
+  campaign.set("utm_campaign", "gh-leadgen");
+}
+location.replace(destination.href);
 </script>
 <p>Redirecting to <a href="https://ccc.amirfish.ai/">CCC</a>&hellip;</p>
 </body>
